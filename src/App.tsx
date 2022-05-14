@@ -9,9 +9,10 @@ import {
   Textarea,
   Grid,
   theme,
+  Image,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+import logo from './logo.png';
 import { api } from './utils/api';
 import state from './utils/state';
 
@@ -41,7 +42,7 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
+            <Image src={logo} alt="iLa Finance Logo" />
             <Textarea
               value={textInputValue}
               onChange={handleInputChange}
