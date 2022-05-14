@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   ChakraProvider,
   Box,
-  Text,
+  Stack,
+  Button,
   VStack,
-  Code,
+  Text,
+  Textarea,
   Grid,
   theme,
 } from '@chakra-ui/react';
@@ -14,17 +16,24 @@ import { api } from './utils/api';
 import state from './utils/state';
 
 function App() {
-  var [userName, setUserName] = useState('');
+  var [emailSentiment, setEmailSentiment] = useState('');
+  var [displayMessage, setDisplayMessage] = useState('');
+  var [isLoading, setIsLoading] = useState(false);
+  let [textInputValue, setTextInputValue] = React.useState('');
 
-  // Using useEffect to call the API once mounted and set the data
-  useEffect(() => {
-    async function fetchLessonData() {
-      const result = await api.get(`users/1`);
-      state.placeHolder = result.data;
-      setUserName(result.data.name);
-    }
-    fetchLessonData();
-  }, []);
+  let handleInputChange = (e: any) => {
+    let textInputValue = e.target.value;
+    setTextInputValue(textInputValue);
+  };
+
+  let analyseText = async () => {
+    setIsLoading(true);
+    const response = await api.post('/', { body: textInputValue });
+    state.emailAnalysis = response.data;
+    setDisplayMessage(response.data.display_message);
+    setEmailSentiment(response.data.sentiment.Sentiment);
+    setIsLoading(false);
+  };
 
   return (
     <ChakraProvider theme={theme}>
@@ -33,10 +42,30 @@ function App() {
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
             <Logo h="40vmin" pointerEvents="none" />
-            <Text>Welcome Back to the iLa Finance Website, {userName}</Text>
-            <Text>
-              Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-            </Text>
+            <Textarea
+              value={textInputValue}
+              onChange={handleInputChange}
+              placeholder="Input Email Text"
+              size="lg"
+              width="50%"
+            />
+            <Stack direction="row" spacing={4}>
+              <Button
+                isLoading={isLoading}
+                loadingText="Submitting"
+                colorScheme="teal"
+                variant="outline"
+                onClick={() => analyseText()}
+              >
+                Analyse Email
+              </Button>
+            </Stack>
+            {displayMessage && emailSentiment && (
+              <Box>
+                <Text>Display Message: {displayMessage}</Text>
+                <Text>Email Sentiment: {emailSentiment}</Text>
+              </Box>
+            )}
           </VStack>
         </Grid>
       </Box>

@@ -3,11 +3,11 @@ import { devtools } from "valtio/utils";
 
 
 interface State {
-  placeHolder: any;
+  emailAnalysis: any;
 }
 
 const state = proxy<State>({
-    placeHolder: null,
+  emailAnalysis: null,
 });
 
 devtools(state);
