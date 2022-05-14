@@ -48,12 +48,13 @@ function App() {
               placeholder="Input Email Text"
               size="lg"
               width="50%"
+              borderColor={'pink'}
             />
             <Stack direction="row" spacing={4}>
               <Button
                 isLoading={isLoading}
                 loadingText="Submitting"
-                colorScheme="teal"
+                colorScheme="pink"
                 variant="outline"
                 onClick={() => analyseText()}
               >
