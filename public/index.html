@@ -5,6 +5,9 @@
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
+    <meta name="xero-client-id" content="0F36F9771ED647A8AF2979F1D4605CF2">
+    <meta name="xero-scopes" content="offline_access accounting.transactions openid profile email accounting.contacts accounting.settings">
+    <meta name="xero-redirect-uri" content="http://localhost:3000/">
     <meta
       name="iLa Finance"
       content="iLa, your go to assistant for all things accounting!"
@@ -27,8 +30,11 @@
     <title>iLa Finance Website</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <span class="xero-button" data-xero-sso data-label="Sign in with Xero"></span>
+    <script src="https://edge.xero.com/platform/sso/xero-sso.js" async defer></script>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     <df-messenger
       intent="WELCOME"
@@ -48,6 +54,12 @@
        --df-messenger-font-color: #DE0000;
        --df-messenger-input-box-color: #FDE1E1;
        --df-messenger-input-font-color: #DE0000;
+      }
+
+      .xero-button {
+        position: absolute;
+        right: 20px;
+        top: 20px;
       }
     </style>
     <!--

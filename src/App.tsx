@@ -40,7 +40,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
+          <ColorModeSwitcher justifySelf="flex-start" />
           <VStack spacing={8}>
             <Image src={logo} alt="iLa Finance Logo" />
             <Textarea
